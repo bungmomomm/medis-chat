@@ -1,0 +1,211 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]><html class="ie9" lang="en"><![endif]-->
+
+<head>	
+<meta charset="utf-8">
+
+<title>Galang Dana Medis</title>
+
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/screen.css">
+<link rel="canonical" href="index.html" />
+<link rel="shortcut icon" href="../img/favicon.ico">
+<meta http-equiv="cleartype" content="on">
+<link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6722892/625604/css/fonts.css" />
+
+</head>
+<body>
+<form class="chat-window" id="chat-form">
+
+  <div class="chat-group" id="chat-group-name" data-active>
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+          Hallo, saya Nanda tim support Kitabisa, boleh tau siapa nama anda beserta nomor WhatsApp anda?</p>
+      </div>
+    </div>
+
+    <div class="chat-message chat-message--user">
+      <div class="chat-bubble chat-bubble--user">
+        <p class="chat-text">
+          <label for="user-name">Hi Nanda, </label>
+          nama saya
+        <div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, budi" id="user-name" name="user-name" data-required />
+          </div>
+        </p>
+		<p class="chat-text">
+          <label for="wa-number">Nomor WhatsApp </label>
+        <div class="chat-input chat-input--required">
+            <input type="text" pattern="\d*" class="chat-input--text" placeholder="misalnya, 08118980087" id="wa" name="wa" data-required />
+          </div>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chat-group" id="chat-group-business">
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+        Hi, <span data-bind-to="#user-name">Freelancer Person</span>. Senang berkenalan dengan anda, boleh beritahu saya hubungan anda dengan penerima manfaat</p>
+      </div>
+    </div>
+
+    <div class="chat-message chat-message--user">
+      <div class="chat-bubble chat-bubble--user">
+        <p class="chat-text">Hubungan saya dengan penerima manfaat
+        <div class="multi-input" data-field="#business-type"><a class="multi-input--option">Saya sendiri</a><a class="multi-input--option" data-active-option>Anak</a><a class="multi-input--option">Orang Tua</a>
+		<a class="multi-input--option">Teman</a><a class="multi-input--option">Lainnya</a></div>
+          <input type="hidden" name="business-type" id="business-type" value="Sole Trader" />
+        </p>
+		<p class="chat-text">
+          <label for="business-name">Nama penerima manfaat</label><div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, Kahfi Setiawan" id="business-name" name="business-name" data-required />
+          </div>
+        </p>
+        
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 
+  <div class="chat-group" id="chat-group-trades">
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+          Judul yang bagus. Baiklah, sekarang tentukan waktu penggalangan dana dan berapa target donasi yang anda inginkan?</p>
+      </div>
+    </div>
+ 
+
+    <div class="chat-message chat-message--user">
+      <div class="chat-bubble chat-bubble--user">
+        <p class="chat-text">
+          <label for="primary-trade">Target donasi yang saya perlukan</label>
+        <div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="Minimal 1.000.000" id="primary-trade" name="primary-trade" data-required />
+          </div>
+        </p>
+		
+		<p class="chat-text">Durasi penggalangan dana saya
+        <div class="multi-input" data-field="#business-type"><a class="multi-input--option" data-active-option>30 Hari</a>
+			<a class="multi-input--option">60 Hari</a><a class="multi-input--option">90 Hari</a></div>
+          <input type="hidden" name="business-type" id="business-type" value="Sole Trader" />
+        </p>
+		
+      </div>
+    </div>
+  </div>
+
+   -->
+
+
+<div class="chat-group" id="chat-group-trades-secondary">
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+			Silakan upload foto untuk mendukung penggalangan dana anda
+        </p>
+      </div>
+    </div>
+
+    <div class="chat-message chat-message--user">
+      <div class="chat-bubble chat-bubble--user">
+        <p class="chat-text">Berikut foto untuk galang dana saya
+        <div class="chat-input chat-input--required">
+		<img id="output_image" />
+		   <input class="chat-input--text" type="file" accept="image/*" onchange="preview_image(event)">
+ 
+		</div>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<div class="chat-group" id="chat-group-business">
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+        <span data-bind-to="#user-name">Freelancer Person</span>. Satu lagi. Silahkan masukan alamat email anda</p>
+      </div>
+    </div>
+
+    <div class="chat-message chat-message--user">
+      <div class="chat-bubble chat-bubble--user">
+        <p class="chat-text">
+          <label for="business-name">Berikut alamat email saya</label><div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, nanda@gmail.com" id="business-name" name="business-name" data-required />
+          </div>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chat-group" id="chat-group-twitter" data-chat-last>
+    <div class="chat-message chat-message--jack">
+      <div class="chat-avatar chat-avatar--jack">
+        <img src="../img/logo.png" alt="Jack" class="chat-image" />
+      </div>
+      <div class="chat-bubble chat-bubble--jack">
+        <p class="chat-text">
+        Silahkan tekan tombol submit di bawah. Setelah data anda berhasil kami terima, tim kami akan menghubungi anda lewat WhatsApp
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <p>Oops! We couldn’t send your enquiry. Please make sure you’ve filled in all required fields and try again!</p>
+  </div>
+
+  <div class="chat-next">
+    <button type="submit" href="#" class="btn btn--primary" data-show="next-chat-group">Next</button>
+  </div>
+</form>
+
+
+<footer class="container footer">
+	<a href="https://withjack.co.uk/" class="logo back-to-top">
+		<h1><span class="hide-text">Jack</span></h1>
+	</a>
+</footer>
+
+
+<script src="../js/main-ck.js"></script>
+<script type='text/javascript'>
+function preview_image(event) 
+{
+ var reader = new FileReader();
+ reader.onload = function()
+ {
+  var output = document.getElementById('output_image');
+  output.src = reader.result;
+ }
+ reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+</body>
+</html>
