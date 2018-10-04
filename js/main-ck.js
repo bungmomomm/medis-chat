@@ -7,6 +7,42 @@ x.cssHooks[u],o&&"get"in o&&(i=o.get(e,!0,n)),i===undefined&&(i=vt(e,t,r)),"norm
 
 $(document).ready(function() {
 
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxUTVMbam8rzUw4b9jHKahk3zUOYXOQRc5H5KlVyXN9lL_a5AA/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const loading = document.querySelector('.js-loading')
+  const successMessage = document.querySelector('.js-success-message')
+  const errorMessage = document.querySelector('.js-error-message')
+
+form.addEventListener('submit', e => {
+      e.preventDefault()
+      showLoadingIndicator()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => showSuccessMessage(response))
+        .catch(error => showErrorMessage(error))
+    })
+
+    function showLoadingIndicator () {
+      form.classList.add('is-hidden')
+      loading.classList.remove('is-hidden')
+    }
+
+    function showSuccessMessage (response) {
+      console.log('Success!', response)
+      setTimeout(() => {
+        successMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+
+    function showErrorMessage (error) {
+      console.error('Error!', error.message)
+      setTimeout(() => {
+        errorMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+
   // Data bindings
   $('[data-bind-to]').each(function() {
     var watch = $( $(this).attr('data-bind-to') );
@@ -50,62 +86,27 @@ $(document).ready(function() {
     }
 
     function checkErrors() {
-      var name = $('#chat-form').find('#user-name').val();
-      var business_name = $('#chat-form').find('#business-name').val();
-      var business_type = $('#chat-form').find('#business-type').val();
-      var primary_trade = $('#chat-form').find('#primary-trade').val();
-      var secondary_trade = $('#chat-form').find('#secondary-trade').val();
-      var cover = $('#chat-form').find('#cover').val();
-      if(cover == "£100,000") {
-        cover = 100000;
-      }
-      if(cover == "£250,000") {
-        cover = 250000;
-      }
-      if(cover == "£500,000") {
-        cover = 500000;
-      }
-      if(cover == "£1,000,000") {
-        cover = 1000000;
-      }
-      if(cover == "£2,000,000") {
-        cover = 2000000;
-      }
-      var turnover = $('#chat-form').find('#turnover').val();
+      var name = $('#chat-form').find('#nama').val();
+      var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
+      var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
+      var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
       var email = $('#chat-form').find('#email').val();
-      var phone = $('#chat-form').find('#phone').val();
-      var contact_method = $('#chat-form').find('#contact-method').val();
-      var twitter = $('#chat-form').find('#twitter').val();
 
       var errors = {};
       $('.with-error').removeClass('with-error');
 
-      if(!name && $('#chat-form').find('#user-name').is(':visible')) {
+      if(!name && $('#chat-form').find('#nama').is(':visible')) {
         errors.name = "Masukan nama anda.";
-        $('#chat-form').find('#user-name').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
+        $('#chat-form').find('#nama').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
       } else {
-        $('#chat-form').find('#user-name').parent().parent().parent().find('.inline-error').remove();
+        $('#chat-form').find('#nama').parent().parent().parent().find('.inline-error').remove();
       }
 
-      if(!business_name && $('#chat-form').find('#business-name').is(':visible')) {
-        errors.business_name = "To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.";
-        $('#chat-form').find('#business-name').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.</div>");
+      if(!nama && $('#chat-form').find('#no_whatsapp').is(':visible')) {
+        errors.nama = "To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.";
+        $('#chat-form').find('#no_whatsapp').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.</div>");
       } else {
-        $('#chat-form').find('#business-name').parent().parent().parent().find('.inline-error').remove();
-      }
-
-      if(!primary_trade && $('#chat-form').find('#primary-trade').is(':visible')) {
-        errors.primary_trade = "So I can give you a quote, I’ll need to know what kind of work you do.";
-        $('#chat-form').find('#primary-trade').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>So I can give you a quote, I’ll need to know what kind of work you do.</div>");
-      } else {
-        $('#chat-form').find('#primary-trade').parent().parent().parent().find('.inline-error').remove();
-      }
-
-      if(!turnover && $('#chat-form').find('#turnover').is(':visible')) {
-        errors.turnover = "Whoops, not so fast! I’ll need an educated guess before we continue.";
-        $('#chat-form').find('#turnover').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Whoops, not so fast! I’ll need an educated guess before we continue.</div>");
-      } else {
-        $('#chat-form').find('#turnover').parent().parent().parent().find('.inline-error').remove();
+        $('#chat-form').find('#no_whatsapp').parent().parent().parent().find('.inline-error').remove();
       }
 
       if(!email && $('#chat-form').find('#email').is(':visible')) {
@@ -149,54 +150,13 @@ $(document).ready(function() {
         var HMU_URL = 'https://intense-sierra-28141.herokuapp.com/v1/customers'; // PROD
         // var HMU_URL = 'https://evening-eyrie-81943.herokuapp.com/v1/customers'; // STAGING
         // var HMU_URL = 'http://localhost:3000/v1/customers'; // LOCAL
-        var name = $('#chat-form').find('#user-name').val();
-        var business_name = $('#chat-form').find('#business-name').val();
-        var business_type = $('#chat-form').find('#business-type').val();
-        var primary_trade = $('#chat-form').find('#primary-trade').val();
-        var secondary_trade = $('#chat-form').find('#secondary-trade').val();
-        var cover = $('#chat-form').find('#cover').val();
-        if(cover == "£100,000") {
-          cover = 100000;
-        }
-        if(cover == "£250,000") {
-          cover = 250000;
-        }
-        if(cover == "£500,000") {
-          cover = 500000;
-        }
-        if(cover == "£1,000,000") {
-          cover = 1000000;
-        }
-        if(cover == "£2,000,000") {
-          cover = 2000000;
-        }
-        var balance = $('#chat-form').find('#trade-balance').val()
-        var turnover = $('#chat-form').find('#turnover').val();
+        var nama = $('#chat-form').find('#nama').val();
+        
         var email = $('#chat-form').find('#email').val();
-        var phone = $('#chat-form').find('#phone').val();
-        var contact_method = $('#chat-form').find('#contact-method').val();
-        var twitter = $('#chat-form').find('#twitter').val();
-        var pl_cover = $('#chat-form').find('#pl_cover').val();
-        var cn_address = $('#chat-form').find('#cn_address').val();
-        var cn_city = $('#chat-form').find('#cn_city').val();
-        var cn_postcode = $('#chat-form').find('#cn_postcode').val();
-        var cn_address_owned = $('#chat-form').find('#cn_address_owned').val();
-        var cn_addresses = formatAddress(cn_address, cn_city, cn_postcode, cn_address_owned);
-        if($('#cn_extra_address').val() == "Add another address") {
-          $('#chat-group-cn_address_extras').find('.chat-bubble--user').each(function(i) {
-            var count = i + 2;
-            var x_address = $('#cn_address_' + count).val();
-            var x_city = $('#cn_city_' + count).val();
-            var x_postcode = $('#cn_postcode_' + count).val();
-            var x_owned = $('#cn_address_owned_' + count).val();
-            cn_addresses += '<br />';
-            cn_addresses += formatAddress(x_address, x_city, x_postcode, x_owned);
-          });
-        }
-        var cn_computers = $('#chat-form').find('#cn_computers').val();
-        var cn_other = $('#chat-form').find('#cn_other').val();
-        var cn_computers_away = $('#chat-form').find('#cn_computers_away').val();
-        var cn_other_away = $('#chat-form').find('#cn_other_away').val();
+        var nama = $('#chat-form').find('#nama').val();
+        var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
+        var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
+        var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
         var errors = checkErrors();
         if( !$.isEmptyObject(errors) ) {
           $('#chat-form .error').show();
@@ -204,26 +164,12 @@ $(document).ready(function() {
         }
         else {
           var fields = {
-            full_name: name,
-            company_name: business_name,
-            company_type: business_type,
-            primary_trade: primary_trade,
-            secondary_trade: secondary_trade,
-            trade_split: balance,
-            cover: cover,
-            turnover: turnover,
-            phone: phone,
-            contact_method: contact_method,
-            twitter: twitter,
+            nama: nama,
+            no_whatsapp: no_whatsapp,
+            jenis_penerima_manfaat: jenis_penerima_manfaat,
+            nama_penerima_manfaat: nama_penerima_manfaat,
+            foto: foto,
             email: email,
-            pl: pl,
-            pl_cover: pl_cover,
-            cn: cn,
-            cn_addresses: cn_addresses,
-            cn_computers: cn_computers,
-            cn_computers_away: cn_computers_away,
-            cn_other: cn_other,
-            cn_other_away: cn_other_away,
           }
           var data = {
             email: email,

@@ -16,7 +16,7 @@
 <script src="https://wzrd.in/standalone/whatwg-fetch@latest"></script>
 </head>
 <body>
-<form class="chat-window" name="submit-to-google-sheet">
+<form class="chat-window" id="chat-form" name="submit-to-google-sheet">
   <div class="chat-group" id="chat-group-name" data-active>
     <div class="chat-message chat-message--jack">
       <div class="chat-avatar chat-avatar--jack">
@@ -197,7 +197,8 @@
 		<h1><span class="hide-text">Kitabisa</span></h1>
 	</a>
 </footer>
-<script src="../js/main-ck.js"></script>
+<script src="../js/jquery.min.js"></script>   
+<!-- <script src="../js/main-ck.js"></script> -->
 <script type='text/javascript'>
 function preview_image(event) 
 {
@@ -210,5 +211,42 @@ function preview_image(event)
  reader.readAsDataURL(event.target.files[0]);
 }
 </script>
+<script>
+    //const scriptURL = 'https://script.google.com/a/stylesheets.co/macros/s/AKfycbzl3hk6JfWqMkVz8S1p5Txky_fscyNWJUCuQQHGHfVP5YLH99A/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUTVMbam8rzUw4b9jHKahk3zUOYXOQRc5H5KlVyXN9lL_a5AA/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const loading = document.querySelector('.js-loading')
+    const successMessage = document.querySelector('.js-success-message')
+    const errorMessage = document.querySelector('.js-error-message')
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      showLoadingIndicator()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => showSuccessMessage(response))
+        .catch(error => showErrorMessage(error))
+    })
+
+    function showLoadingIndicator () {
+      form.classList.add('is-hidden')
+      loading.classList.remove('is-hidden')
+    }
+
+    function showSuccessMessage (response) {
+      console.log('Success!', response)
+      setTimeout(() => {
+        successMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+
+    function showErrorMessage (error) {
+      console.error('Error!', error.message)
+      setTimeout(() => {
+        errorMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+  </script>
 </body>
 </html>
