@@ -233,9 +233,9 @@ $(document).ready(function() {
           .fail(function() {
             $('#chat-form .error').show();
           })
-          .done(function() {
-            $(location).attr('href', 'https://kitabisa.com/bantuselamatkanvino')
-          });
+          // .done(function() {
+          //   $(location).attr('href', 'https://kitabisa.com/bantuselamatkanvino')
+          // });
         }
       }
       var errors = {}
