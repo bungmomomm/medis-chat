@@ -17,10 +17,13 @@
 <link rel="shortcut icon" href="../img/favicon.ico">
 <meta http-equiv="cleartype" content="on">
 <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6722892/625604/css/fonts.css" />
-
+<script src="https://unpkg.com/prefixfree@1.0.0/prefixfree.min.js"></script>
+<script src="https://wzrd.in/standalone/formdata-polyfill@latest"></script>
+<script src="https://wzrd.in/standalone/promise-polyfill@latest"></script>
+<script src="https://wzrd.in/standalone/whatwg-fetch@latest"></script>
 </head>
 <body>
-<form class="chat-window" id="chat-form">
+<form class="chat-window" id="chat-form" name="submit-to-google-sheet">
 
   <div class="chat-group" id="chat-group-name" data-active>
     <div class="chat-message chat-message--jack">
@@ -36,16 +39,16 @@
     <div class="chat-message chat-message--user">
       <div class="chat-bubble chat-bubble--user">
         <p class="chat-text">
-          <label for="user-name">Hi Nanda, </label>
+          <label for="nama">Hi Nanda, </label>
           nama saya
         <div class="chat-input chat-input--required">
-            <input type="text" class="chat-input--text" placeholder="misalnya, budi" id="user-name" name="user-name" data-required />
+            <input type="text" class="chat-input--text" placeholder="misalnya, budi" id="nama" name="nama" data-required required/>
           </div>
         </p>
 		<p class="chat-text">
-          <label for="wa-number">Nomor WhatsApp </label>
+          <label for="no_whatsapp">Nomor WhatsApp </label>
         <div class="chat-input chat-input--required">
-            <input type="text" pattern="\d*" class="chat-input--text" placeholder="misalnya, 08118980087" id="wa" name="wa" data-required />
+            <input type="text" pattern="\d*" class="chat-input--text" placeholder="misalnya, 08118980087" id="no_whatsapp" name="no_whatsapp" data-required />
           </div>
         </p>
       </div>
@@ -67,13 +70,16 @@
     <div class="chat-message chat-message--user">
       <div class="chat-bubble chat-bubble--user">
         <p class="chat-text">Hubungan saya dengan penerima manfaat
-        <div class="multi-input" data-field="#business-type"><a class="multi-input--option">Saya sendiri</a><a class="multi-input--option" data-active-option>Anak</a><a class="multi-input--option">Orang Tua</a>
+        <div class="multi-input" data-field="#jenis_penerima_manfaat">
+          <a class="multi-input--option">Saya sendiri</a>
+          <a class="multi-input--option" data-active-option>Anak</a>
+          <a class="multi-input--option">Orang Tua</a>
 		<a class="multi-input--option">Teman</a><a class="multi-input--option">Lainnya</a></div>
-          <input type="hidden" name="business-type" id="business-type" value="Sole Trader" />
+          <input type="hidden" name="jenis_penerima_manfaat" id="jenis_penerima_manfaat" value="Lainnya" />
         </p>
 		<p class="chat-text">
-          <label for="business-name">Nama penerima manfaat</label><div class="chat-input chat-input--required">
-            <input type="text" class="chat-input--text" placeholder="misalnya, Kahfi Setiawan" id="business-name" name="business-name" data-required />
+          <label for="nama_penerima_manfaat">Nama penerima manfaat</label><div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, Kahfi Setiawan" id="nama_penerima_manfaat" name="nama_penerima_manfaat" data-required />
           </div>
         </p>
         
@@ -134,7 +140,7 @@
         <p class="chat-text">Berikut foto untuk galang dana saya
         <div class="chat-input chat-input--required">
 		<img id="output_image" />
-		   <input class="chat-input--text" type="file" accept="image/*" onchange="preview_image(event)">
+		   <input class="chat-input--text" type="file" accept="image/*" name="foto" onchange="preview_image(event)">
  
 		</div>
         </p>
@@ -156,8 +162,8 @@
     <div class="chat-message chat-message--user">
       <div class="chat-bubble chat-bubble--user">
         <p class="chat-text">
-          <label for="business-name">Berikut alamat email saya</label><div class="chat-input chat-input--required">
-            <input type="text" class="chat-input--text" placeholder="misalnya, nanda@gmail.com" id="business-name" name="business-name" data-required />
+          <label for="email">Berikut alamat email saya</label><div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, nanda@gmail.com" id="email" name="email" data-required required/>
           </div>
         </p>
       </div>
@@ -207,5 +213,42 @@ function preview_image(event)
  reader.readAsDataURL(event.target.files[0]);
 }
 </script>
+<script>
+    //const scriptURL = 'https://script.google.com/a/stylesheets.co/macros/s/AKfycbzl3hk6JfWqMkVz8S1p5Txky_fscyNWJUCuQQHGHfVP5YLH99A/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUTVMbam8rzUw4b9jHKahk3zUOYXOQRc5H5KlVyXN9lL_a5AA/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const loading = document.querySelector('.js-loading')
+    const successMessage = document.querySelector('.js-success-message')
+    const errorMessage = document.querySelector('.js-error-message')
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      showLoadingIndicator()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => showSuccessMessage(response))
+        .catch(error => showErrorMessage(error))
+    })
+
+    function showLoadingIndicator () {
+      form.classList.add('is-hidden')
+      loading.classList.remove('is-hidden')
+    }
+
+    function showSuccessMessage (response) {
+      console.log('Success!', response)
+      setTimeout(() => {
+        successMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+
+    function showErrorMessage (error) {
+      console.error('Error!', error.message)
+      setTimeout(() => {
+        errorMessage.classList.remove('is-hidden')
+        loading.classList.add('is-hidden')
+      }, 500)
+    }
+  </script>
 </body>
 </html>
