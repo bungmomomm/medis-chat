@@ -14,7 +14,7 @@ $(document).ready(function() {
   const successMessage = document.querySelector('.js-success-message')
   const errorMessage = document.querySelector('.js-error-message')
 
-form.addEventListener('submit', e => {
+    form.addEventListener('submit', e => {
       e.preventDefault()
       showLoadingIndicator()
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
@@ -75,16 +75,6 @@ form.addEventListener('submit', e => {
       $(".chat-range--readout").text(e.target.value);
     })
 
-    function formatAddress(address, city, postcode, owned) {
-      var address = address + "<br />" + city + "<br />" + postcode;
-      if(owned == "I own this property") {
-        address += "<strong>Owned</strong>";
-      } else {
-        address += "<strong>Not Owned</strong>";
-      }
-      return address;
-    }
-
     function checkErrors() {
       var name = $('#chat-form').find('#nama').val();
       var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
@@ -135,16 +125,6 @@ form.addEventListener('submit', e => {
 
     $('[data-show="next-chat-group"]').on('click', function(e){
       e.preventDefault();
-      // Check to see if we need to show public Liability/contents questions
-      var extra = $('#chat-form').find('#extra').val();
-      var pl = false;
-      var cn = false;
-      if(  extra == "I’d like both!" || extra == "Just public liability") {
-        pl = true;
-      }
-      if(  extra == "I’d like both!" || extra == "Just contents insurance") {
-        cn = true;
-      }
       if( $('[data-active]').is('[data-chat-last]') ) { // submit the form if the active chat is the last in form
         // Submit the form
         var HMU_URL = 'https://intense-sierra-28141.herokuapp.com/v1/customers'; // PROD
