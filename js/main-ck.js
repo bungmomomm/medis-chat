@@ -97,11 +97,12 @@ $(document).ready(function() {
           }
           $.post(HMU_URL, fields)
           .fail(function() {
-            $('#chat-form .js-error-message').addClass('is-hidden');
+            $('.js-error-message').addClass('is-hidden');
           })
           .done(function() {
-            $('#chat-form .loading').removeClass('is-hidden');
-            $('#chat-form .js-success-message').removeClass('is-hidden');
+            $('#chat-form').addClass('is-hidden');
+            $('.loading').removeClass('is-hidden');
+            $('.js-success-message').removeClass('is-hidden');
           });
         }
       }
