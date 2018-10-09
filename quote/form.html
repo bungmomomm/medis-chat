@@ -14,6 +14,9 @@
 <script src="https://wzrd.in/standalone/formdata-polyfill@latest"></script>
 <script src="https://wzrd.in/standalone/promise-polyfill@latest"></script>
 <script src="https://wzrd.in/standalone/whatwg-fetch@latest"></script>
+<style>
+  .is-hidden {display: none;}
+</style>
 </head>
 <body>
 <form class="chat-window" id="chat-form" name="submit-to-google-sheet">
@@ -80,66 +83,6 @@
     </div>
   </div>
 
-  <!-- 
-  <div class="chat-group" id="chat-group-trades">
-    <div class="chat-message chat-message--jack">
-      <div class="chat-avatar chat-avatar--jack">
-        <img src="../img/logo.png" alt="Jack" class="chat-image" />
-      </div>
-      <div class="chat-bubble chat-bubble--jack">
-        <p class="chat-text">
-          Judul yang bagus. Baiklah, sekarang tentukan waktu penggalangan dana dan berapa target donasi yang anda inginkan?</p>
-      </div>
-    </div>
- 
-
-    <div class="chat-message chat-message--user">
-      <div class="chat-bubble chat-bubble--user">
-        <p class="chat-text">
-          <label for="primary-trade">Target donasi yang saya perlukan</label>
-        <div class="chat-input chat-input--required">
-            <input type="text" class="chat-input--text" placeholder="Minimal 1.000.000" id="primary-trade" name="primary-trade" data-required />
-          </div>
-        </p>
-		
-		<p class="chat-text">Durasi penggalangan dana saya
-        <div class="multi-input" data-field="#business-type"><a class="multi-input--option" data-active-option>30 Hari</a>
-			<a class="multi-input--option">60 Hari</a><a class="multi-input--option">90 Hari</a></div>
-          <input type="hidden" name="business-type" id="business-type" value="Sole Trader" />
-        </p>
-		
-      </div>
-    </div>
-  </div>
-
-   -->
-
-
-<div class="chat-group" id="chat-group-trades-secondary">
-    <!-- <div class="chat-message chat-message--jack">
-      <div class="chat-avatar chat-avatar--jack">
-        <img src="../img/logo.png" alt="Jack" class="chat-image" />
-      </div>
-      <div class="chat-bubble chat-bubble--jack">
-        <p class="chat-text">
-			Silakan upload foto untuk mendukung penggalangan dana anda
-        </p>
-      </div>
-    </div>
-    
-    <div class="chat-message chat-message--user">
-      <div class="chat-bubble chat-bubble--user">
-        <p class="chat-text">Berikut foto untuk galang dana saya
-        <div class="chat-input chat-input--required">
-		<img id="output_image" />
-		   <input class="chat-input--text" type="file" accept="image/*" name="foto" onchange="preview_image(event)">
- 
-		</div>
-        </p>
-      </div>
-    </div> -->
-  </div>
-
 <div class="chat-group" id="chat-group-business">
     <div class="chat-message chat-message--jack">
       <div class="chat-avatar chat-avatar--jack">
@@ -197,7 +140,7 @@
 		<h1><span class="hide-text">Kitabisa</span></h1>
 	</a>
 </footer>
-<script src="../js/jquery.min.js"></script>   
+<script src="../js/main-ck.js"></script>   
 <!-- <script src="../js/main-ck.js"></script> -->
 <script type='text/javascript'>
 function preview_image(event) 

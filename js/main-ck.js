@@ -7,42 +7,6 @@ x.cssHooks[u],o&&"get"in o&&(i=o.get(e,!0,n)),i===undefined&&(i=vt(e,t,r)),"norm
 
 $(document).ready(function() {
 
-
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxUTVMbam8rzUw4b9jHKahk3zUOYXOQRc5H5KlVyXN9lL_a5AA/exec'
-  const form = document.forms['submit-to-google-sheet']
-  const loading = document.querySelector('.js-loading')
-  const successMessage = document.querySelector('.js-success-message')
-  const errorMessage = document.querySelector('.js-error-message')
-
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      showLoadingIndicator()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => showSuccessMessage(response))
-        .catch(error => showErrorMessage(error))
-    })
-
-    function showLoadingIndicator () {
-      form.classList.add('is-hidden')
-      loading.classList.remove('is-hidden')
-    }
-
-    function showSuccessMessage (response) {
-      console.log('Success!', response)
-      setTimeout(() => {
-        successMessage.classList.remove('is-hidden')
-        loading.classList.add('is-hidden')
-      }, 500)
-    }
-
-    function showErrorMessage (error) {
-      console.error('Error!', error.message)
-      setTimeout(() => {
-        errorMessage.classList.remove('is-hidden')
-        loading.classList.add('is-hidden')
-      }, 500)
-    }
-
   // Data bindings
   $('[data-bind-to]').each(function() {
     var watch = $( $(this).attr('data-bind-to') );
@@ -76,27 +40,20 @@ $(document).ready(function() {
     })
 
     function checkErrors() {
-      var name = $('#chat-form').find('#nama').val();
-      var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
-      var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
-      var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
+      var nama = $('#chat-form').find('#nama').val();
       var email = $('#chat-form').find('#email').val();
+      var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
+      var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
+      var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
 
       var errors = {};
       $('.with-error').removeClass('with-error');
 
-      if(!name && $('#chat-form').find('#nama').is(':visible')) {
-        errors.name = "Masukan nama anda.";
-        $('#chat-form').find('#nama').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
+      if(!nama && $('#chat-form').find('#nama').is(':visible')) {
+        errors.nama = "Masukan nama anda.";
+        $('#chat-form').find('#user-name').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
       } else {
         $('#chat-form').find('#nama').parent().parent().parent().find('.inline-error').remove();
-      }
-
-      if(!nama && $('#chat-form').find('#no_whatsapp').is(':visible')) {
-        errors.nama = "To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.";
-        $('#chat-form').find('#no_whatsapp').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>To continue, I need to know the name of your business. That could be your own name if you’re self-employed. Or if you haven’t yet started, put in the name you’re thinking of giving your business.</div>");
-      } else {
-        $('#chat-form').find('#no_whatsapp').parent().parent().parent().find('.inline-error').remove();
       }
 
       if(!email && $('#chat-form').find('#email').is(':visible')) {
@@ -109,34 +66,18 @@ $(document).ready(function() {
       return errors;
     }
 
-    $('[data-new-address]').on('click', function(e){ // copy address bubble
-      e.preventDefault();
-      var newAddress = $('#chat-group-cn_address').find('.chat-bubble--user').clone();
-      var addressCount = $('#address_count').val();
-      addressCount++;
-      newAddress.find("#cn_address").attr("id", "cn_address_" + addressCount).attr("name", "cn_address_" + addressCount).val("");
-      newAddress.find("#cn_city").attr("id", "cn_city_" + addressCount).attr("name", "cn_city_" + addressCount).val("");
-      newAddress.find("#cn_postcode").attr("id", "cn_postcode_" + addressCount).attr("name", "cn_postcode_" + addressCount).val("");
-      newAddress.find("#cn_address_owned").attr("id", "cn_address_owned_" + addressCount).attr("name", "cn_address_owned_" + addressCount);
-      newAddress.find('[data-field="#cn_address_owned"]').attr('data-field', "#cn_address_owned_" + addressCount);
-      newAddress.insertBefore($(this).parent());
-      $('#address_count').val(addressCount);
-    });
 
     $('[data-show="next-chat-group"]').on('click', function(e){
       e.preventDefault();
+      // Check to see if we need to show public Liability/contents questions
       if( $('[data-active]').is('[data-chat-last]') ) { // submit the form if the active chat is the last in form
         // Submit the form
-        var HMU_URL = 'https://intense-sierra-28141.herokuapp.com/v1/customers'; // PROD
-        // var HMU_URL = 'https://evening-eyrie-81943.herokuapp.com/v1/customers'; // STAGING
-        // var HMU_URL = 'http://localhost:3000/v1/customers'; // LOCAL
+        var HMU_URL = 'https://script.google.com/macros/s/AKfycbxUTVMbam8rzUw4b9jHKahk3zUOYXOQRc5H5KlVyXN9lL_a5AA/exec'; // PROD
         var nama = $('#chat-form').find('#nama').val();
-        
         var email = $('#chat-form').find('#email').val();
-        var nama = $('#chat-form').find('#nama').val();
         var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
-        var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
         var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
+        var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
         var errors = checkErrors();
         if( !$.isEmptyObject(errors) ) {
           $('#chat-form .error').show();
@@ -145,11 +86,10 @@ $(document).ready(function() {
         else {
           var fields = {
             nama: nama,
-            no_whatsapp: no_whatsapp,
-            jenis_penerima_manfaat: jenis_penerima_manfaat,
-            nama_penerima_manfaat: nama_penerima_manfaat,
-            foto: foto,
             email: email,
+            no_whatsapp: no_whatsapp,
+            nama_penerima_manfaat: nama_penerima_manfaat, 
+            jenis_penerima_manfaat: jenis_penerima_manfaat, 
           }
           var data = {
             email: email,
@@ -157,27 +97,19 @@ $(document).ready(function() {
           }
           $.post(HMU_URL, fields)
           .fail(function() {
-            $('#chat-form .error').show();
+            $('#chat-form .js-error-message').addClass('is-hidden');
           })
-          // .done(function() {
-          //   $(location).attr('href', 'https://kitabisa.com/bantuselamatkanvino')
-          // });
+          .done(function() {
+            $('#chat-form .loading').removeClass('is-hidden');
+            $('#chat-form .js-success-message').removeClass('is-hidden');
+          });
         }
       }
       var errors = {}
       errors = checkErrors();
       if( $.isEmptyObject(errors)) { // no errors, we can progress
         var newActive = $('.chat-group[data-active]').next('.chat-group');
-        if(pl === false && $('.chat-group[data-active]').attr('id') == "chat-group-extra") {
-          if(cn === true) {
-            newActive = $('#chat-group-cn_address');
-          } else {
-            newActive = $('#chat-group-contact');
-          }
-        }
-        if(cn === false && $('.chat-group[data-active]').attr('id') == "chat-group-pl_cover") {
-          newActive = $('#chat-group-contact');
-        }
+        
         if($('.chat-group[data-active]').attr('id') == "chat-group-cn_extra_address" && $('#cn_extra_address').val() == "Just this one") {
           newActive = $('#chat-group-cn_computers');
         }
@@ -188,8 +120,8 @@ $(document).ready(function() {
           $('.chat-btn').hide();
         }
         newActive.show();
-        var newTop = newActive.offset().top;
-        $("html, body").animate({ scrollTop: newTop });
+        // var newTop = newActive.offset().top;
+        // $("html, body").animate({ scrollTop: newTop });
         newActive.find('.chat-input--text').first().focus();
         $('.chat-group[data-active]').removeAttr('data-active');
         newActive.attr('data-active', '');
@@ -241,204 +173,5 @@ $(document).ready(function() {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
-
-  if( $('#risk-form').length ) {
-    $('#risk-form').find('.error').hide();
-    $('.trade-question').hide();
-    $('.extra-question').hide();
-    var primaryTrade = getParameterByName('pt');
-    var secondaryTrade = getParameterByName('st');
-    var extra = getParameterByName('x');
-    if(extra == 'both') {
-      $('.extra-question').show();
-    }
-    if(extra == 'pl') {
-      $('[data-extra="pl"]').show();
-    }
-    if(extra == 'cn') {
-      $('[data-extra="cn"]').show();
-    }
-    $('[data-trade="' + primaryTrade + '"]').show();
-    $('[data-trade="' + secondaryTrade + '"]').show();
-    $('[data-trade-dup="' + secondaryTrade + '"]').show();
-    $('[data-trade-dup="' + primaryTrade + '"]').show();
-    $('[data-trade-three="' + primaryTrade + '"]').show();
-    $('[data-trade-three="' + secondaryTrade + '"]').show();
-    // Risk questions
-    $('#risk-form').on('submit', function(e) {
-      $('#risk-form').find('.error').hide();
-      e.preventDefault();
-      var customerId = getParameterByName('u');
-      var custSec = getParameterByName('s');
-      var RISK_URL = 'https://intense-sierra-28141.herokuapp.com/v1/customers/' + customerId; // PROD
-      // var RISK_URL = 'https://evening-eyrie-81943.herokuapp.com/v1/customers/' + customerId; // STAGING
-      // var RISK_URL = 'http://localhost:3000/v1/customers/' + customerId; // LOCAL
-      var address = $(this).find('#address').val();
-      var ref = $(this).find('#ref').val();
-      var loss_of_life = $(this).find("input[name='loss_of_life']:checked").val();
-      var losses_or_claims = $(this).find("input[name='losses_or_claims']:checked").val();
-      var give_rise_to_claim = $(this).find("input[name='give_rise_to_claim']:checked").val();
-      var statement_of_fact = $(this).find("input[name='statement_of_fact']:checked").val();
-      var destruction_or_damage = $(this).find("input[name='destruction_or_damage']:checked").val();
-      var personally_identifiable = $(this).find("input[name='personally_identifiable']:checked").val();
-      var payment_processing = $(this).find("input[name='payment_processing']:checked").val();
-      var card_data = $(this).find("input[name='card_data']:checked").val();
-      var good_license = $(this).find("input[name='good_license']:checked").val();
-      var pay_per_click = $(this).find("input[name='pay_per_click']:checked").val();
-      var five_meters = $(this).find("input[name='five_meters']:checked").val();
-      var asbestos = $(this).find("input[name='asbestos']:checked").val();
-      var heat = $(this).find("input[name='heat']:checked").val();
-      var physical = $(this).find("input[name='physical']:checked").val();
-      var normal_running = $(this).find("input[name='normal_running']:checked").val();
-      var outside_uk = $(this).find("input[name='outside_uk']:checked").val();
-      var tangible = $(this).find("input[name='tangible']:checked").val();
-      var under_contents_limit = $(this).find("input[name='under_contents_limit']:checked").val();
-      var locking_device = $(this).find("input[name='locking_device']:checked").val();
-      var external_door = $(this).find("input[name='external_door']:checked").val();
-      var openings = $(this).find("input[name='openings']:checked").val();
-      var five_hundred_k = $(this).find("input[name='five_hundred_k']:checked").val();
-      var public_figures = $(this).find("input[name='public_figures']:checked").val();
-      var future_conduct = $(this).find("input[name='future_conduct']:checked").val();
-      var written_process = $(this).find("input[name='written_process']:checked").val();
-      var tv_campaigns = $(this).find("input[name='tv_campaigns']:checked").val();
-      var written_signoff = $(this).find("input[name='written_signoff']:checked").val();
-      var explicit_permission = $(this).find("input[name='explicit_permission']:checked").val();
-      var health_information = $(this).find("input[name='health_information']:checked").val();
-      var pi_information = $(this).find("input[name='pi_information']:checked").val();
-      var copyright_sharing = $(this).find("input[name='copyright_sharing']:checked").val();
-      var no_professional_advice = $(this).find("input[name='no_professional_advice']:checked").val();
-      var review_process = $(this).find("input[name='review_process']:checked").val();
-      var billing_period = $(this).find("input[name='billing_period']:checked").val();
-      var account_number = $('#account_number').val();
-      var account_name = $('#account_name').val();
-      var sort_code = $('#sort_code').val();
-      var sole_owner = $(this).find("input[name='sole_owner']:checked").val();
-      if(loss_of_life == "true") { loss_of_life = true; }
-      if(loss_of_life == "false") { loss_of_life = false; }
-      if(losses_or_claims == "true") { losses_or_claims = true; }
-      if(losses_or_claims == "false") { losses_or_claims = false; }
-      if(give_rise_to_claim == "true") { give_rise_to_claim = true; }
-      if(give_rise_to_claim == "false") { give_rise_to_claim = false; }
-      if(statement_of_fact == "true") { statement_of_fact = true; }
-      if(statement_of_fact == "false") { statement_of_fact = false; }
-      if(destruction_or_damage == "true") { destruction_or_damage = true; }
-      if(destruction_or_damage == "false") { destruction_or_damage = false; }
-      if(personally_identifiable == "true") { personally_identifiable = true; }
-      if(personally_identifiable == "false") { personally_identifiable = false; }
-      if(payment_processing == "true") { payment_processing = true; }
-      if(payment_processing == "false") { payment_processing = false; }
-      if(card_data == "true") { card_data = true; }
-      if(card_data == "false") { card_data = false; }
-      if(good_license == "true") { good_license = true; }
-      if(good_license == "false") { good_license = false; }
-      if(pay_per_click == "true") { pay_per_click = true; }
-      if(pay_per_click == "false") { pay_per_click = false; }
-      if(review_process == "true") { review_process = true; }
-      if(review_process == "false") { review_process = false; }
-      if(five_meters == "true") { five_meters = true; }
-      if(five_meters == "false") { five_meters = false; }
-      if(asbestos == "true") { asbestos = true; }
-      if(asbestos == "false") { asbestos = false; }
-      if(heat == "true") { heat = true; }
-      if(heat == "false") { heat = false; }
-      if(physical == "true") { physical = true; }
-      if(physical == "false") { physical = false; }
-      if(normal_running == "true") { normal_running = true; }
-      if(normal_running == "false") { normal_running = false; }
-      if(outside_uk == "true") { outside_uk = true; }
-      if(outside_uk == "false") { outside_uk = false; }
-      if(tangible == "true") { tangible = true; }
-      if(tangible == "false") { tangible = false; }
-      if(under_contents_limit == "true") { under_contents_limit = true; }
-      if(under_contents_limit == "false") { under_contents_limit = false; }
-      if(locking_device == "true") { locking_device = true; }
-      if(locking_device == "false") { locking_device = false; }
-      if(external_door == "true") { external_door = true; }
-      if(external_door == "false") { external_door = false; }
-      if(openings == "true") { openings = true; }
-      if(openings == "false") { openings = false; }
-      if(sole_owner == "true") { sole_owner = true; }
-      if(sole_owner == "false") { sole_owner = false; }
-      if(five_hundred_k =="true") {five_hundred_k = true}
-      if(five_hundred_k =="false") {five_hundred_k = false}
-      if(public_figures =="true") {public_figures = true}
-      if(public_figures =="false") {public_figures = false}
-      if(future_conduct =="true") {future_conduct = true}
-      if(future_conduct =="false") {future_conduct = false}
-      if(written_process =="true") {written_process = true}
-      if(written_process =="false") {written_process = false}
-      if(tv_campaigns =="true") {tv_campaigns = true}
-      if(tv_campaigns =="false") {tv_campaigns = false}
-      if(written_signoff =="true") {written_signoff = true}
-      if(written_signoff =="false") {written_signoff = false}
-      if(explicit_permission =="true") {explicit_permission = true}
-      if(explicit_permission =="false") {explicit_permission = false}
-      if(health_information =="true") {health_information = true}
-      if(health_information =="false") {health_information = false}
-      if(pi_information =="true") {pi_information = true}
-      if(pi_information =="false") {pi_information = false}
-      if(copyright_sharing =="true") {copyright_sharing = true}
-      if(copyright_sharing =="false") {copyright_sharing = false}
-      if(no_professional_advice =="true") {no_professional_advice = true}
-      if(no_professional_advice =="false") {no_professional_advice = false}
-      if( !address || !ref || loss_of_life === undefined || losses_or_claims === undefined || give_rise_to_claim === undefined || destruction_or_damage === undefined ) {
-        $(this).find('.error').show();
-      } else {
-        $.ajax({
-          url: RISK_URL,
-          type: 'PUT',
-          data: {
-            address: address,
-            ref: ref,
-            secret: custSec,
-            loss_of_life: loss_of_life,
-            losses_or_claims: losses_or_claims,
-            give_rise_to_claim: give_rise_to_claim,
-            statement_of_fact: statement_of_fact,
-            destruction_or_damage: destruction_or_damage,
-            personally_identifiable: personally_identifiable,
-            payment_processing: payment_processing,
-            card_data: card_data,
-            good_license: good_license,
-            pay_per_click: pay_per_click,
-            review_process: review_process,
-            five_meters: five_meters,
-            asbestos: asbestos,
-            heat: heat,
-            physical: physical,
-            normal_running: normal_running,
-            outside_uk: outside_uk,
-            tangible: tangible,
-            under_contents_limit: under_contents_limit,
-            locking_device: locking_device,
-            external_door: external_door,
-            openings: openings,
-            billing_period: billing_period,
-            account_name: account_name,
-            account_number: account_number,
-            sort_code: sort_code,
-            sole_owner: sole_owner,
-            five_hundred_k: five_hundred_k,
-            public_figures: public_figures,
-            future_conduct: future_conduct,
-            written_process: written_process,
-            tv_campaigns: tv_campaigns,
-            written_signoff: written_signoff,
-            explicit_permission: explicit_permission,
-            health_information: health_information,
-            pi_information: pi_information,
-            copyright_sharing: copyright_sharing,
-            no_professional_advice: no_professional_advice,
-          },
-          success: function(result) {
-            $(location).attr('href', '/risk-questions/thank-you.html');
-          },
-          error: function(err) {
-            $('#risk-form').find('.error').show();
-          }
-        });
-      }
-    });
   }
 });
