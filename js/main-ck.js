@@ -51,7 +51,7 @@ $(document).ready(function() {
 
       if(!nama && $('#chat-form').find('#nama').is(':visible')) {
         errors.nama = "Masukan nama anda.";
-        $('#chat-form').find('#user-name').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
+        $('#chat-form').find('#nama').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
       } else {
         $('#chat-form').find('#nama').parent().parent().parent().find('.inline-error').remove();
       }
