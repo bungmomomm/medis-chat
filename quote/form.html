@@ -11,9 +11,6 @@
 <link rel="shortcut icon" href="../img/favicon.ico">
 <meta http-equiv="cleartype" content="on">
 <script src="https://unpkg.com/prefixfree@1.0.0/prefixfree.min.js"></script>
-<!-- <script src="https://wzrd.in/standalone/formdata-polyfill@latest"></script>
-<script src="https://wzrd.in/standalone/promise-polyfill@latest"></script>
-<script src="https://wzrd.in/standalone/whatwg-fetch@latest"></script> -->
 <style>
   .is-hidden {display: none;}
 </style>
@@ -72,9 +69,14 @@
 		<a class="multi-input--option">Teman</a><a class="multi-input--option">Lainnya</a></div>
           <input type="hidden" name="jenis_penerima_manfaat" id="jenis_penerima_manfaat" value="Lainnya" />
         </p>
-		<p class="chat-text">
+		    <p class="chat-text">
           <label for="nama_penerima_manfaat">Nama penerima manfaat</label><div class="chat-input chat-input--required">
             <input type="text" class="chat-input--text" placeholder="misalnya, Kahfi Setiawan" id="nama_penerima_manfaat" name="nama_penerima_manfaat" data-required />
+          </div>
+        </p>
+        <p class="chat-text">
+          <label for="jenis_penyakit">Jenis penyakit</label><div class="chat-input chat-input--required">
+            <input type="text" class="chat-input--text" placeholder="misalnya, Kanker Payudara" id="jenis_penyakit" name="jenis_penyakit" data-required />
           </div>
         </p>
         

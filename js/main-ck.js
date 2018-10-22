@@ -45,20 +45,42 @@ $(document).ready(function() {
       var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
       var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
       var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
+      var jenis_penyakit = $('#chat-form').find('#jenis_penyakit').val();
 
       var errors = {};
       $('.with-error').removeClass('with-error');
 
       if(!nama && $('#chat-form').find('#nama').is(':visible')) {
-        errors.nama = "Masukan nama anda.";
+        errors.nama = "Masukan nama Anda.";
         $('#chat-form').find('#nama').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama anda.</div>");
       } else {
         $('#chat-form').find('#nama').parent().parent().parent().find('.inline-error').remove();
       }
 
+      if(!no_whatsapp && $('#chat-form').find('#no_whatsapp').is(':visible')) {
+        errors.no_whatsapp = "Masukan No Whatsapp Anda.";
+        $('#chat-form').find('#no_whatsapp').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan No Whatsapp Anda.</div>");
+      } else {
+        $('#chat-form').find('#no_whatsapp').parent().parent().parent().find('.inline-error').remove();
+      }
+
+      if(!nama_penerima_manfaat && $('#chat-form').find('#nama_penerima_manfaat').is(':visible')) {
+        errors.nama_penerima_manfaat = "Masukan nama penerima manfaat.";
+        $('#chat-form').find('#nama_penerima_manfaat').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan nama penerima manfaat.</div>");
+      } else {
+        $('#chat-form').find('#nama_penerima_manfaat').parent().parent().parent().find('.inline-error').remove();
+      }
+
+      if(!jenis_penyakit && $('#chat-form').find('#jenis_penyakit').is(':visible')) {
+        errors.nama_penerima_manfaat = "Masukan jenis penyakit.";
+        $('#chat-form').find('#jenis_penyakit').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan jenis penyakit.</div>");
+      } else {
+        $('#chat-form').find('#jenis_penyakit').parent().parent().parent().find('.inline-error').remove();
+      }
+
       if(!email && $('#chat-form').find('#email').is(':visible')) {
-        errors.email = "Please put in your email address so we can send you your quote.";
-        $('#chat-form').find('#email').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Please put in your email address so we can send you your quote.</div>");
+        errors.email = "Masukan alamat email Anda.";
+        $('#chat-form').find('#email').parent().parent().parent().addClass('with-error').append("<div class='inline-error'>Masukan alamat email Anda, tim kami akan segera menghubungi Anda.</div>");
       } else {
         $('#chat-form').find('#email').parent().parent().parent().find('.inline-error').remove();
       }
@@ -78,6 +100,7 @@ $(document).ready(function() {
         var no_whatsapp = $('#chat-form').find('#no_whatsapp').val();
         var nama_penerima_manfaat = $('#chat-form').find('#nama_penerima_manfaat').val();
         var jenis_penerima_manfaat = $('#chat-form').find('#jenis_penerima_manfaat').val();
+        var jenis_penyakit = $('#chat-form').find('#jenis_penyakit').val();
         var errors = checkErrors();
         if( !$.isEmptyObject(errors) ) {
           $('#chat-form .error').show();
@@ -90,6 +113,7 @@ $(document).ready(function() {
             no_whatsapp: no_whatsapp,
             nama_penerima_manfaat: nama_penerima_manfaat, 
             jenis_penerima_manfaat: jenis_penerima_manfaat, 
+            jenis_penyakit: jenis_penyakit, 
           }
           var data = {
             email: email,
